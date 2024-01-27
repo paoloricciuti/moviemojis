@@ -26,14 +26,14 @@ export async function load({ cookies }) {
 		const popular_page = await get_random_popular_page();
 		const random = Math.floor(rand() * popular_page.results.length);
 		const random_movie = popular_page.results[random];
-		let emojis = await get_emojis_from_title_from_db(random_movie.original_title);
+		let emojis = await get_emojis_from_title_from_db(random_movie.title);
 		if (!emojis) {
-			emojis = (await get_emojis_from_title_ai(random_movie.original_title)).emoji;
+			emojis = (await get_emojis_from_title_ai(random_movie.title)).emoji;
 			add_new_movie(random_movie, emojis);
 		}
 		const similars_films = await get_reccomendations_from_film_id(random_movie.id);
 		let options = similars_films.results.slice(0, 4).map((film) => film.title);
-		options.push(random_movie.original_title);
+		options.push(random_movie.title);
 		options = shuffle(options);
 		cookies.set(TODAY_COUNT_COOKIE_NAME, (today_count + 1).toString(), {
 			path: '/',
@@ -41,7 +41,7 @@ export async function load({ cookies }) {
 		});
 		return {
 			emojis,
-			title: random_movie.original_title,
+			title: random_movie.title,
 			options,
 			exhausted: false as const,
 			today_count: today_count + 1,

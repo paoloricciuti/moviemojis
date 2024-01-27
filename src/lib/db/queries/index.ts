@@ -31,7 +31,7 @@ export function add_new_movie(movie: Film, emojis: string) {
 	db.insert(movies)
 		.values({
 			emojis,
-			title: movie.original_title,
+			title: movie.title,
 			tmdb_id: movie.id.toString(),
 		})
 		.execute();
