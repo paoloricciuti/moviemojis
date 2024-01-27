@@ -1,4 +1,7 @@
 import type { Config } from 'drizzle-kit';
+
+console.log('Pushing db to ', process.env.DATABASE_URL);
+
 export default {
 	schema: './src/lib/db/schemas/*',
 	out: './drizzle',
