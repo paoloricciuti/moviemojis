@@ -9,15 +9,15 @@ function fetch_tmdb(path: string) {
 		method: 'GET',
 		headers: {
 			accept: 'application/json',
-			Authorization: `Bearer ${TMDB_BEARER}`
-		}
+			Authorization: `Bearer ${TMDB_BEARER}`,
+		},
 	};
 	return fetch(url, options);
 }
 
 export async function get_reccomendations_from_film_id(id: number) {
 	const recommendations_res = await fetch_tmdb(
-		`/movie/${id}/recommendations?language=en-US&page=1`
+		`/movie/${id}/recommendations?language=en-US&page=1`,
 	);
 	const recommendations_json = await recommendations_res.json();
 	console.log(recommendations_json);
@@ -28,8 +28,8 @@ export async function get_random_popular_page() {
 	const populars_res = await fetch_tmdb(
 		`/discover/movie?include_adult=false&include_video=true&language=en-US&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&page=${get_skewed_random(
 			281,
-			seedable_rand(10)
-		)}`
+			seedable_rand(10),
+		)}`,
 	);
 	const populars_json = await populars_res.json();
 	return parse(popular_films_schema, populars_json);

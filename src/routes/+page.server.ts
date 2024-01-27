@@ -7,6 +7,7 @@ export async function load() {
 		const popular_page = await get_random_popular_page();
 		const random = Math.floor(Math.random() * popular_page.results.length);
 		const random_film = popular_page.results[random];
+
 		const emojis = await get_emojis_from_film(random_film.original_title);
 		const similars_films = await get_reccomendations_from_film_id(random_film.id);
 		const options = similars_films.results.slice(0, 4).map((film) => film.original_title);

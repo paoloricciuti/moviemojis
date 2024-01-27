@@ -1,7 +1,7 @@
 import * as v from 'valibot';
 
 export const open_ai_result_schema = v.object({
-	emoji: v.string()
+	emoji: v.string(),
 });
 export const film_schema = v.object({
 	adult: v.boolean(),
@@ -17,19 +17,19 @@ export const film_schema = v.object({
 	title: v.string(),
 	video: v.boolean(),
 	vote_average: v.number(),
-	vote_count: v.number()
+	vote_count: v.number(),
 });
 
 export const popular_films_schema = v.object({
 	page: v.number(),
 	results: v.array(film_schema),
 	total_pages: v.number(),
-	total_results: v.number()
+	total_results: v.number(),
 });
 
 export const reccomendations_films_schema = v.object({
 	page: v.number(),
 	results: v.array(film_schema),
 	total_pages: v.number(),
-	total_results: v.number()
+	total_results: v.number(),
 });
