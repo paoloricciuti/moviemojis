@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let data;
+	const { data } = $props();
 </script>
 
 Guess what's this film: {data.emoji}

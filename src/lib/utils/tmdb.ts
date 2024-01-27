@@ -20,6 +20,7 @@ export async function get_reccomendations_from_film_id(id: number) {
 		`/movie/${id}/recommendations?language=en-US&page=1`
 	);
 	const recommendations_json = await recommendations_res.json();
+	console.log(recommendations_json);
 	return parse(reccomendations_films_schema, recommendations_json);
 }
 

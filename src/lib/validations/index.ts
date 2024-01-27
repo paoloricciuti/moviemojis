@@ -5,7 +5,7 @@ export const open_ai_result_schema = v.object({
 });
 export const film_schema = v.object({
 	adult: v.boolean(),
-	backdrop_path: v.string(),
+	backdrop_path: v.nullable(v.string()),
 	genre_ids: v.array(v.number()),
 	id: v.number(),
 	original_language: v.string(),
