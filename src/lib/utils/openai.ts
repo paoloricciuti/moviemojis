@@ -3,7 +3,7 @@ import { open_ai_result_schema } from '$lib/validations';
 import OpenAi from 'openai';
 import { parse } from 'valibot';
 
-export async function get_emojis_from_film(film: string, retry = 0) {
+export async function get_emojis_from_title_ai(film: string, retry = 0) {
 	const openai = new OpenAi({
 		apiKey: OPENAI_API_KEY,
 	});
@@ -23,7 +23,7 @@ export async function get_emojis_from_film(film: string, retry = 0) {
 	} catch (e) {
 		console.log(JSON.stringify(e));
 		if (retry < 0) {
-			return get_emojis_from_film(film, retry + 1);
+			return get_emojis_from_title_ai(film, retry + 1);
 		}
 		throw new Error('OpenAi was not able to generate this film');
 	}

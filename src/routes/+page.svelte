@@ -2,7 +2,7 @@
 	const { data } = $props();
 </script>
 
-Guess what's this film: {data.emoji}
+Guess what's this film: {data.emojis}
 <details>
 	<summary>Open</summary>
 	{data.title}

@@ -3,6 +3,7 @@ import * as v from 'valibot';
 export const open_ai_result_schema = v.object({
 	emoji: v.string(),
 });
+
 export const film_schema = v.object({
 	adult: v.boolean(),
 	backdrop_path: v.nullable(v.string()),
@@ -12,7 +13,7 @@ export const film_schema = v.object({
 	original_title: v.string(),
 	overview: v.string(),
 	popularity: v.number(),
-	poster_path: v.string(),
+	poster_path: v.nullable(v.string()),
 	release_date: v.string(),
 	title: v.string(),
 	video: v.boolean(),
@@ -33,3 +34,6 @@ export const reccomendations_films_schema = v.object({
 	total_pages: v.number(),
 	total_results: v.number(),
 });
+
+export type Film = v.Output<typeof film_schema>;
+export type OpenAiResult = v.Output<typeof open_ai_result_schema>;
