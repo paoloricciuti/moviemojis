@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1706366872887,
+      "tag": "0000_illegal_iron_monger",
+      "breakpoints": true
+    }
+  ]
+}
