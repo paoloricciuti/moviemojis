@@ -12,7 +12,10 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"drizzle:generate": "drizzle-kit generate:sqlite",
+		"drizzle:push": "drizzle-kit push:sqlite",
+		"drizzle:studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.41.1",
@@ -40,6 +43,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@libsql/client": "^0.4.0",
+		"drizzle-kit": "^0.20.13",
+		"drizzle-orm": "^0.29.3",
 		"openai": "^4.26.0",
 		"valibot": "^0.27.0"
 	}
