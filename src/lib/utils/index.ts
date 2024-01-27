@@ -16,5 +16,5 @@ export function seedable_rand(seed: number) {
 }
 
 export function get_skewed_random(max: number, random_fn: () => number) {
-	return Math.floor(Math.pow(random_fn(), 2.5) * max) + 1;
+	return Math.floor(Math.pow(random_fn(), 2.5) * max);
 }

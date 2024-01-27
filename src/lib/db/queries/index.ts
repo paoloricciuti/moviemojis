@@ -5,6 +5,7 @@ import { get_skewed_random } from '$lib/utils';
 import type { Film } from '$lib/validations';
 
 export async function get_emojis_from_title_from_db(title: string) {
+	// TODO: sort by upvotes
 	const movie_list = await db.select().from(movies).where(eq(movies.title, title));
 	if (movie_list.length === 0) return;
 

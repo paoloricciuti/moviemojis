@@ -1,12 +1,17 @@
 import { add_new_movie, get_emojis_from_title_from_db } from '$lib/db/queries';
+import { seedable_rand } from '$lib/utils';
 import { get_emojis_from_title_ai } from '$lib/utils/openai';
 import { get_random_popular_page, get_reccomendations_from_film_id } from '$lib/utils/tmdb';
 import { error } from '@sveltejs/kit';
 import { ValiError } from 'valibot';
+
+const rand = seedable_rand(10);
+
 export async function load() {
 	try {
 		const popular_page = await get_random_popular_page();
-		const random = Math.floor(Math.random() * popular_page.results.length);
+		// TODO: seed by date
+		const random = Math.floor(rand() * popular_page.results.length);
 		const random_movie = popular_page.results[random];
 		let emojis = await get_emojis_from_title_from_db(random_movie.original_title);
 		if (!emojis) {
@@ -23,6 +28,7 @@ export async function load() {
 		if (e instanceof ValiError) {
 			error(500, { message: 'Validation error', issues: e.issues });
 		}
+		console.log(e);
 		error(500);
 	}
 }
