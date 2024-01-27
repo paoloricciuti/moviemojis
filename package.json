@@ -34,5 +34,9 @@
 		"vite": "^5.0.12",
 		"vitest": "^1.2.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"openai": "^4.26.0",
+		"valibot": "^0.27.0"
+	}
 }
