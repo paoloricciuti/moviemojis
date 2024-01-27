@@ -24,11 +24,14 @@ export async function get_reccomendations_from_film_id(id: number) {
 }
 
 export async function get_random_popular_page() {
-	// TODO: seed the values by date
+	const today = new Date();
+	today.setHours(0);
+	today.setMinutes(0);
+	today.setSeconds(0);
+	today.setMilliseconds(0);
+	const random_page = get_skewed_random(281, seedable_rand(today.getTime())) + 1;
 	const populars_res = await fetch_tmdb(
-		`/discover/movie?include_adult=false&include_video=true&language=en-US&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&page=${
-			get_skewed_random(281, seedable_rand(10)) + 1
-		}`,
+		`/discover/movie?include_adult=false&include_video=true&language=en-US&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&page=${random_page}`,
 	);
 	const populars_json = await populars_res.json();
 	return parse(popular_films_schema, populars_json);
