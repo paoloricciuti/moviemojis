@@ -1,7 +1,8 @@
 import { TMDB_BEARER } from '$env/static/private';
 import { popular_films_schema, reccomendations_films_schema } from '$lib/validations';
 import { parse } from 'valibot';
-import { get_skewed_random, seedable_rand } from '.';
+import { get_skewed_random } from '.';
+import seedable_rand from 'seed-random';
 
 function fetch_tmdb(path: string) {
 	const url = `https://api.themoviedb.org/3${path}`;
@@ -29,7 +30,7 @@ export async function get_random_popular_page() {
 	today.setMinutes(0);
 	today.setSeconds(0);
 	today.setMilliseconds(0);
-	const random_page = get_skewed_random(281, seedable_rand(today.getTime())) + 1;
+	const random_page = get_skewed_random(281, seedable_rand(today.getTime().toString())) + 1;
 	const populars_res = await fetch_tmdb(
 		`/discover/movie?include_adult=false&include_video=true&language=en-US&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&page=${random_page}`,
 	);

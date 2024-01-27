@@ -17,6 +17,9 @@ dependencies:
   openai:
     specifier: ^4.26.0
     version: 4.26.0
+  seed-random:
+    specifier: ^2.2.0
+    version: 2.2.0
   valibot:
     specifier: ^0.27.0
     version: 0.27.0
@@ -37,6 +40,9 @@ devDependencies:
   '@types/eslint':
     specifier: 8.56.0
     version: 8.56.0
+  '@types/seed-random':
+    specifier: ^2.2.4
+    version: 2.2.4
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.19.1
     version: 6.19.1(@typescript-eslint/parser@6.19.1)(eslint@8.56.0)(typescript@5.3.3)
@@ -1015,6 +1021,10 @@ packages:
 
   /@types/pug@2.0.10:
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
+    dev: true
+
+  /@types/seed-random@2.2.4:
+    resolution: {integrity: sha512-M4wSiHb23w6oRFo69SrjWiYMXocfhRyzX5kuGkAJmLrYJDD//8zmhsY+9t6t87RLYhyIcE4h3feYwqOFdaslHw==}
     dev: true
 
   /@types/semver@7.5.6:
@@ -3428,6 +3438,10 @@ packages:
       mkdirp: 0.5.6
       rimraf: 2.7.1
     dev: true
+
+  /seed-random@2.2.0:
+    resolution: {integrity: sha512-34EQV6AAHQGhoc0tn/96a9Fsi6v2xdqe/dMUwljGRaFOzR3EgRmECvD0O8vi8X+/uQ50LGHfkNu/Eue5TPKZkQ==}
+    dev: false
 
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}

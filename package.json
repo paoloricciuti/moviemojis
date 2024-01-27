@@ -24,6 +24,7 @@
 		"@sveltejs/kit": "^2.5.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.1",
 		"@types/eslint": "8.56.0",
+		"@types/seed-random": "^2.2.4",
 		"@typescript-eslint/eslint-plugin": "^6.19.1",
 		"@typescript-eslint/parser": "^6.19.1",
 		"autoprefixer": "^10.4.17",
@@ -49,6 +50,7 @@
 		"drizzle-kit": "^0.20.13",
 		"drizzle-orm": "^0.29.3",
 		"openai": "^4.26.0",
+		"seed-random": "^2.2.0",
 		"valibot": "^0.27.0"
 	}
 }
