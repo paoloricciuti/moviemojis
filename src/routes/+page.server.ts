@@ -17,12 +17,12 @@ export async function load({ cookies }) {
 				exhausted: true as const,
 			};
 		}
-		const today = new Date();
-		today.setHours(0);
-		today.setMinutes(0);
-		today.setSeconds(0);
-		today.setMilliseconds(0);
-		const rand = seedable_rand((today.getTime() + today_count).toString());
+		const date = new Date();
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		date.setMilliseconds(0);
+		const rand = seedable_rand((date.getTime() + today_count).toString());
 		const popular_page = await get_random_popular_page();
 		const random = Math.floor(rand() * popular_page.results.length);
 		const random_movie = popular_page.results[random];
@@ -35,9 +35,14 @@ export async function load({ cookies }) {
 		let options = similars_films.results.slice(0, 4).map((film) => film.title);
 		options.push(random_movie.title);
 		options = shuffle(options);
+		// set date to tomorrow at midnight
+		date.setHours(date.getHours() + 24);
+		// set the expiration of the cookie at midnight of tomorrow
+		const maxAge = Math.floor((date.getTime() - Date.now()) / 1000);
 		cookies.set(TODAY_COUNT_COOKIE_NAME, (today_count + 1).toString(), {
 			path: '/',
 			httpOnly: false,
+			maxAge,
 		});
 		return {
 			emojis,
