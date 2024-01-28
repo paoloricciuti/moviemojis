@@ -1,9 +1,10 @@
 import { eq, sql, desc } from 'drizzle-orm';
-import { db } from '..';
+import { db } from '../index.server';
 import { movies } from '../schemas/movies';
 import { get_skewed_random } from '$lib/utils';
 import type { Film } from '$lib/validations';
 import { upvotes } from '../schemas/upvotes';
+import { users } from '../schemas/users';
 
 export async function get_emojis_from_title_from_db(title: string) {
 	const movie_list = await db
@@ -28,11 +29,39 @@ export async function get_emojis_from_title_from_db(title: string) {
 }
 
 export function add_new_movie(movie: Film, emojis: string) {
-	db.insert(movies)
+	return db
+		.insert(movies)
 		.values({
 			emojis,
 			title: movie.title,
 			tmdb_id: movie.id.toString(),
 		})
 		.execute();
+}
+
+export async function get_user_from_google_id(id: string) {
+	const selected_users = await db.select().from(users).where(eq(users.google_id, id)).limit(1);
+	if (selected_users?.length > 0) {
+		return selected_users[0];
+	}
+	return null;
+}
+
+export function add_new_user({
+	email,
+	google_id,
+	picture,
+}: {
+	email: string;
+	google_id: string;
+	picture: string;
+}) {
+	return db
+		.insert(users)
+		.values({
+			email,
+			google_id,
+			picture,
+		})
+		.returning();
 }
