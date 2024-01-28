@@ -35,5 +35,12 @@ export const reccomendations_films_schema = v.object({
 	total_results: v.number(),
 });
 
+export const google_openid_schema = v.object({
+	sub: v.string(),
+	picture: v.string(),
+	name: v.string(),
+	email: v.string(),
+});
+
 export type Film = v.Output<typeof film_schema>;
 export type OpenAiResult = v.Output<typeof open_ai_result_schema>;

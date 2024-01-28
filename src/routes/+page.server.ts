@@ -1,4 +1,4 @@
-import { add_new_movie, get_emojis_from_title_from_db } from '$lib/db/queries';
+import { add_new_movie, get_emojis_from_title_from_db } from '$lib/db/queries/index.server.js';
 import seedable_rand from 'seed-random';
 import { get_emojis_from_title_ai } from '$lib/utils/openai';
 import { get_random_popular_page, get_reccomendations_from_film_id } from '$lib/utils/tmdb';

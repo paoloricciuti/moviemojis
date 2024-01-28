@@ -8,12 +8,21 @@ dependencies:
   '@libsql/client':
     specifier: ^0.4.0
     version: 0.4.0
+  '@lucia-auth/adapter-sqlite':
+    specifier: ^3.0.0
+    version: 3.0.0(@libsql/client@0.4.0)(lucia@3.0.1)
+  arctic:
+    specifier: ^1.1.0
+    version: 1.1.0
   drizzle-kit:
     specifier: ^0.20.13
     version: 0.20.13
   drizzle-orm:
     specifier: ^0.29.3
     version: 0.29.3(@libsql/client@0.4.0)
+  lucia:
+    specifier: ^3.0.1
+    version: 3.0.1
   openai:
     specifier: ^4.26.0
     version: 4.26.0
@@ -751,6 +760,22 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@lucia-auth/adapter-sqlite@3.0.0(@libsql/client@0.4.0)(lucia@3.0.1):
+    resolution: {integrity: sha512-7XMfMMNziFOoqIq2u9W5Z+wo7G7lzNQfUh7wDlkIqKxJMSLtP6GKH+QpK+21X4ZY9dIDmiuiwqZmS3Q3CgpATw==}
+    peerDependencies:
+      '@libsql/client': ^0.3.0
+      better-sqlite3: 8.x - 9.x
+      lucia: 3.x
+    peerDependenciesMeta:
+      '@libsql/client':
+        optional: true
+      better-sqlite3:
+        optional: true
+    dependencies:
+      '@libsql/client': 0.4.0
+      lucia: 3.0.1
+    dev: false
 
   /@mapbox/node-pre-gyp@1.0.11:
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
@@ -1678,6 +1703,12 @@ packages:
   /aproba@2.0.0:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
     dev: true
+
+  /arctic@1.1.0:
+    resolution: {integrity: sha512-O2Mcoq991UMI2KCb2zuw7jWfCYCfMu4aveXVDUmfro3MAeq0gMCk7qTl4Y5WB0YXs21xgQFMsh2gs6WBlorAyQ==}
+    dependencies:
+      oslo: 1.0.1
+    dev: false
 
   /are-we-there-yet@2.0.0:
     resolution: {integrity: sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==}
@@ -3083,6 +3114,12 @@ packages:
       es5-ext: 0.10.62
     dev: false
 
+  /lucia@3.0.1:
+    resolution: {integrity: sha512-srwUkTCGgr6N4mFpaKZVZy5kwiRZdsrbIDv9Wrjar+xyw1MjojYQQ7oRbegjRWOZ3yI8xOOclK3sz/rga2J7/w==}
+    dependencies:
+      oslo: 1.0.1
+    dev: false
+
   /magic-string@0.30.5:
     resolution: {integrity: sha512-7xlpfBaQaP/T6Vh8MO/EqXSW5En6INHEvEXQiuff7Gku0PWjU3uf6w/j9o7O+SpB5fOAkrI5HeoNgwjEO0pFsA==}
     engines: {node: '>=12'}
@@ -3392,6 +3429,13 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
     dev: true
+
+  /oslo@1.0.1:
+    resolution: {integrity: sha512-esfzZry+HfGgK/GCYkg7BRlLd3RH5aHa08wgLJPYjENXybi0BvXxGk0LbUj+lXfz2TkjPDHe4rB/o6JxRLHxBg==}
+    dependencies:
+      '@node-rs/argon2': 1.7.2
+      '@node-rs/bcrypt': 1.9.2
+    dev: false
 
   /oslo@1.0.2:
     resolution: {integrity: sha512-yBoZN0sOL5eEngLR2tFMTk2YFBF7czq/3ASCTM0WizAnUTllVRetCAsmV2CMMfu699VIe7f6vhNgJ0bQ2ejedg==}

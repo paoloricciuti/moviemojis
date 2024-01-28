@@ -8,6 +8,13 @@
       "when": 1706366872887,
       "tag": "0000_illegal_iron_monger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1706479220417,
+      "tag": "0001_lucky_magik",
+      "breakpoints": true
     }
   ]
 }

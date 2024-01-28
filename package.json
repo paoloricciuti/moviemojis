@@ -48,8 +48,11 @@
 	"type": "module",
 	"dependencies": {
 		"@libsql/client": "^0.4.0",
+		"@lucia-auth/adapter-sqlite": "^3.0.0",
+		"arctic": "^1.1.0",
 		"drizzle-kit": "^0.20.13",
 		"drizzle-orm": "^0.29.3",
+		"lucia": "^3.0.1",
 		"openai": "^4.26.0",
 		"oslo": "^1.0.2",
 		"seed-random": "^2.2.0",

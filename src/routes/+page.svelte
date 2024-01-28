@@ -36,7 +36,22 @@
 	const parsed_time = $derived(parse_time());
 </script>
 
-<main class="grid place-items-center gap-2">
+<main class="grid place-items-center gap-2 p-4">
+	{#if data.user}
+		<div class="justify-self-end grid grid-cols-[1fr_auto] grid-rows-2 gap-x-4">
+			{data.user.username}
+			{#if data.user.picture}
+				<img
+					class="size-16 rounded-full row-span-2"
+					src={data.user.picture}
+					alt={data.user.username}
+				/>
+			{/if}
+			<a class="justify-self-end" href="/logout">Logout</a>
+		</div>
+	{:else}
+		<a class="justify-self-end" href="/login/google">Login</a>
+	{/if}
 	{#if data.exhausted}
 		<h1 class="text-4xl">That's it for today</h1>
 		<p>Come back in: <code>{parsed_time}</code> to play again</p>
