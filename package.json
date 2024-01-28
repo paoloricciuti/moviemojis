@@ -15,6 +15,7 @@
 		"test:unit": "vitest",
 		"drizzle:generate": "drizzle-kit generate:sqlite",
 		"drizzle:push": "drizzle-kit push:sqlite",
+		"drizzle:migrate-dev": "dotenv -e .env node ./src/lib/db/migrate.js",
 		"drizzle:migrate-prod": "dotenv -e .env.prod node ./src/lib/db/migrate.js",
 		"drizzle:studio": "drizzle-kit studio"
 	},

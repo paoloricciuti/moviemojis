@@ -2,6 +2,8 @@ import { drizzle } from 'drizzle-orm/libsql';
 import { migrate } from 'drizzle-orm/libsql/migrator';
 import { createClient } from '@libsql/client';
 
+console.log('Migrating ', process.env.DATABASE_URL);
+
 const client = createClient({
 	url: process.env.DATABASE_URL ?? '',
 	authToken: process.env.DATABASE_TOKEN,
