@@ -10,8 +10,6 @@ export async function GET(event) {
 		scopes: ['openid', 'email', 'profile'],
 	});
 
-	console.log(url.toJSON());
-
 	event.cookies.set('google_oauth_state', state, {
 		path: '/',
 		secure: import.meta.env.PROD,
