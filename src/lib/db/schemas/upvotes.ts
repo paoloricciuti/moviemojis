@@ -2,12 +2,13 @@ import { sql } from 'drizzle-orm';
 import { sqliteTable, text, index, unique } from 'drizzle-orm/sqlite-core';
 import { users } from './users';
 import { movies } from './movies';
+import { generateId } from 'lucia';
 
 export const upvotes = sqliteTable(
 	'upvotes',
 	{
 		id: text('id')
-			.$default(() => crypto.randomUUID())
+			.$default(() => generateId(15))
 			.primaryKey(),
 		from_user: text('from_user').references(() => users.id),
 		for_movie: text('for_movie').references(() => movies.id),

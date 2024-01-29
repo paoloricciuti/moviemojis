@@ -1,12 +1,13 @@
 import { sql } from 'drizzle-orm';
 import { sqliteTable, text, index } from 'drizzle-orm/sqlite-core';
 import { users } from './users';
+import { generateId } from 'lucia';
 
 export const movies = sqliteTable(
 	'movies',
 	{
 		id: text('id')
-			.$default(() => crypto.randomUUID())
+			.$default(() => generateId(15))
 			.primaryKey(),
 		title: text('title').notNull(),
 		tmdb_id: text('tmdb_id').notNull(),
