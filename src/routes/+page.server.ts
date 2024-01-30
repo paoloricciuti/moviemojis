@@ -52,10 +52,19 @@ export async function load({ cookies }) {
 				come_back_in,
 			};
 		}
-		const rand = seedable_rand((date.getTime() + today_count).toString());
-		const popular_page = await get_random_popular_page();
-		const random = Math.floor(rand() * popular_page.results.length);
-		const random_movie = popular_page.results[random];
+		const rand = seedable_rand(date.getTime().toString());
+		let popular_page: Awaited<ReturnType<typeof get_random_popular_page>> | undefined = undefined;
+		while ((popular_page?.results.length ?? 0) < 10) {
+			popular_page = await get_random_popular_page();
+		}
+		const popular_page_results = popular_page?.results ?? [];
+		const movies: typeof popular_page_results = [];
+		while (movies.length < 10) {
+			const random = Math.floor(rand() * popular_page_results.length);
+			movies.push(popular_page_results[random]);
+			popular_page_results.splice(random, 1);
+		}
+		const random_movie = movies[today_count];
 		let emojis = await get_emojis_from_title_from_db(random_movie.title);
 		if (!emojis) {
 			emojis = (await get_emojis_from_title_ai(random_movie.title)).emoji;
