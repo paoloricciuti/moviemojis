@@ -3,7 +3,7 @@ import { db } from '../index.server';
 import { movies } from '../schemas/movies';
 import { get_skewed_random } from '$lib/utils';
 import type { Film } from '$lib/validations';
-import { upvotes } from '../schemas/upvotes';
+import { upvotes, type Upvotes } from '../schemas/upvotes';
 import { users } from '../schemas/users';
 
 export async function get_emojis_from_title_from_db(title: string) {
@@ -14,7 +14,7 @@ export async function get_emojis_from_title_from_db(title: string) {
 				emojis: movies.emojis,
 				title: movies.title,
 			},
-			upvotes: sql`cast(count(${upvotes.id}) as int)`,
+			upvotes: sql<number>`cast(sum(${upvotes.delta}) as int)`,
 		})
 		.from(movies)
 		.leftJoin(upvotes, eq(movies.id, upvotes.for_movie))
@@ -25,7 +25,7 @@ export async function get_emojis_from_title_from_db(title: string) {
 	if (movie_list.length === 0) return;
 
 	const random_entry = get_skewed_random(movie_list.length, Math.random);
-	return movie_list[random_entry].movies.emojis;
+	return { ...movie_list[random_entry].movies, upvotes: movie_list[random_entry].upvotes };
 }
 
 export function add_new_movie(movie: Film, emojis: string) {
@@ -36,7 +36,7 @@ export function add_new_movie(movie: Film, emojis: string) {
 			title: movie.title,
 			tmdb_id: movie.id.toString(),
 		})
-		.execute();
+		.returning();
 }
 
 export async function get_user_from_google_id(id: string) {
@@ -62,6 +62,21 @@ export function add_new_user({
 			email,
 			google_id,
 			picture,
+		})
+		.returning();
+}
+
+export function add_new_upvote({
+	delta,
+	for_movie,
+	from_user,
+}: Omit<Upvotes, 'id' | 'created_at'>) {
+	return db
+		.insert(upvotes)
+		.values({
+			delta,
+			for_movie,
+			from_user,
 		})
 		.returning();
 }

@@ -1,0 +1,1 @@
+ALTER TABLE upvotes ADD `delta` integer DEFAULT 1 NOT NULL;

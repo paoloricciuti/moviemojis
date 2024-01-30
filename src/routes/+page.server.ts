@@ -1,4 +1,8 @@
-import { add_new_movie, get_emojis_from_title_from_db } from '$lib/db/queries/index.server.js';
+import {
+	add_new_movie,
+	add_new_upvote,
+	get_emojis_from_title_from_db,
+} from '$lib/db/queries/index.server.js';
 import seedable_rand from 'seed-random';
 import { get_emojis_from_title_ai } from '$lib/utils/openai';
 import { get_random_popular_page, get_reccomendations_from_film_id } from '$lib/utils/tmdb';
@@ -65,10 +69,14 @@ export async function load({ cookies }) {
 			popular_page_results.splice(random, 1);
 		}
 		const random_movie = movies[today_count];
-		let emojis = await get_emojis_from_title_from_db(random_movie.title);
-		if (!emojis) {
-			emojis = (await get_emojis_from_title_ai(random_movie.title)).emoji;
-			add_new_movie(random_movie, emojis);
+		let movie = await get_emojis_from_title_from_db(random_movie.title);
+		if (!movie) {
+			const emojis = (await get_emojis_from_title_ai(random_movie.title)).emoji;
+			const [new_movie] = await add_new_movie(random_movie, emojis);
+			movie = {
+				...new_movie,
+				upvotes: 0,
+			};
 		}
 		const similars_films = await get_reccomendations_from_film_id(random_movie.id);
 		let options = similars_films.results
@@ -77,7 +85,9 @@ export async function load({ cookies }) {
 		options.push({ title: random_movie.title, id: random_movie.id });
 		options = shuffle(options, seedable_rand(random_movie.title));
 		return {
-			emojis,
+			emojis: movie.emojis,
+			movie_id: movie.id,
+			upvotes: movie.upvotes,
 			correct_id: await sign_id(random_movie.id),
 			options,
 			exhausted: false as const,
@@ -128,4 +138,40 @@ export const actions: Actions = {
 			maxAge,
 		});
 	},
+	async vote({ request, locals }) {
+		const data = await request.formData();
+		const delta_str = data.get('delta')?.toString();
+		const for_movie = data.get('movie_id')?.toString();
+		const from_user = locals.user?.id;
+		if (!delta_str || !for_movie || !from_user) {
+			return fail(400);
+		}
+		const delta = parseInt(delta_str);
+		if (!is_delta_valid(delta)) {
+			return fail(400);
+		}
+		try {
+			await add_new_upvote({
+				delta,
+				for_movie,
+				from_user,
+			});
+			return {
+				correct: true,
+				answer_id: for_movie,
+				upvote_error: false,
+			};
+		} catch (e) {
+			console.log(e);
+			return fail(500, {
+				correct: true,
+				answer_id: for_movie,
+				upvote_error: true,
+			});
+		}
+	},
 };
+
+function is_delta_valid(delta: number): delta is 1 | -1 {
+	return delta === 1 || delta === -1;
+}

@@ -15,6 +15,13 @@
       "when": 1706479220417,
       "tag": "0001_lucky_magik",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1706654952566,
+      "tag": "0002_next_hex",
+      "breakpoints": true
     }
   ]
 }

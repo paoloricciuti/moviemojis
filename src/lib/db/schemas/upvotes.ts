@@ -1,8 +1,9 @@
 import { sql } from 'drizzle-orm';
-import { sqliteTable, text, index, unique } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, index, unique, integer } from 'drizzle-orm/sqlite-core';
 import { users } from './users';
 import { movies } from './movies';
 import { generateId } from 'lucia';
+import type { InferSelectModel } from 'drizzle-orm';
 
 export const upvotes = sqliteTable(
 	'upvotes',
@@ -12,6 +13,7 @@ export const upvotes = sqliteTable(
 			.primaryKey(),
 		from_user: text('from_user').references(() => users.id),
 		for_movie: text('for_movie').references(() => movies.id),
+		delta: integer('delta').notNull().default(1).$type<-1 | 1>(),
 		created_at: text('created_at').default(sql`CURRENT_TIMESTAMP`),
 	},
 	(table) => {
@@ -22,3 +24,5 @@ export const upvotes = sqliteTable(
 		};
 	},
 );
+
+export type Upvotes = InferSelectModel<typeof upvotes>;

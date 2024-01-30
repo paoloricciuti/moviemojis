@@ -33,6 +33,8 @@
 		}
 	});
 
+	const votes_simbol = $derived((data.upvotes ?? 0) < 0 ? '⬇️' : '⬆️');
+
 	const parsed_time = $derived(parse_time());
 </script>
 
@@ -59,6 +61,10 @@
 		<p class="text-6xl">
 			{data.emojis}
 		</p>
+		<p>
+			{votes_simbol}
+			{Math.abs(data.upvotes)}
+		</p>
 		<form class="grid text-3xl" use:enhance method="post" action="?/guess">
 			<input type="hidden" value={data.correct_id} name="correct_id" />
 			<fieldset class="grid" disabled={form?.correct}>
@@ -74,6 +80,18 @@
 		</form>
 		<p>Remaining {10 - data.today_count}</p>
 		{#if form?.correct}
+			{#if data.user}
+				<form class="grid place-items-center" use:enhance method="post" action="?/vote">
+					<input type="hidden" value={data.movie_id} name="movie_id" />
+					<div>
+						<button name="delta" value="-1">⬇️</button>
+						<button name="delta" value="1">⬆️</button>
+					</div>
+					{#if form.upvote_error}
+						<p>Cannot vote this time</p>
+					{/if}
+				</form>
+			{/if}
 			<form use:enhance method="post" action="?/next">
 				This is correct!
 				<button>Next</button>
