@@ -46,7 +46,6 @@ export async function GET(event) {
 				...sessionCookie.attributes,
 			});
 		}
-		console.log('here');
 	} catch (e) {
 		// the specific error message depends on the provider
 		if (e instanceof OAuth2RequestError) {
