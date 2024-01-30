@@ -75,7 +75,7 @@ export async function load({ cookies }) {
 			.slice(0, 4)
 			.map((film) => ({ title: film.title, id: film.id }));
 		options.push({ title: random_movie.title, id: random_movie.id });
-		options = shuffle(options, rand);
+		options = shuffle(options, seedable_rand(random_movie.title));
 		return {
 			emojis,
 			correct_id: await sign_id(random_movie.id),
