@@ -85,8 +85,18 @@
 					<input type="hidden" value={data.movie_id} name="movie_id" />
 					<input type="hidden" value={form.answer_id} name="answer_id" />
 					<div>
-						<button name="delta" value="-1">⬇️</button>
-						<button name="delta" value="1">⬆️</button>
+						<button
+							disabled={data.old_upvote === -1}
+							class="disabled:opacity-35"
+							name="delta"
+							value="-1">⬇️</button
+						>
+						<button
+							disabled={data.old_upvote === 1}
+							class="disabled:opacity-35"
+							name="delta"
+							value="1">⬆️</button
+						>
 					</div>
 					{#if form.upvote_error}
 						<p>Cannot vote this time</p>

@@ -25,7 +25,7 @@ export async function get_emojis_from_title_from_db(title: string) {
 	if (movie_list.length === 0) return;
 
 	const random_entry = get_skewed_random(movie_list.length, Math.random);
-	return { ...movie_list[random_entry].movies, upvotes: movie_list[random_entry].upvotes };
+	return { ...movie_list[random_entry]!.movies, upvotes: movie_list[random_entry]!.upvotes };
 }
 
 export function add_new_movie(movie: Film, emojis: string) {
@@ -86,4 +86,12 @@ export function add_new_upvote({
 			where: and(eq(upvotes.for_movie, for_movie ?? ''), eq(upvotes.from_user, from_user ?? '')),
 		})
 		.returning();
+}
+
+export async function get_upvote_for_movie(for_movie: string, from_user: string) {
+	const [upvote] = await db
+		.select()
+		.from(upvotes)
+		.where(and(eq(upvotes.for_movie, for_movie), eq(upvotes.from_user, from_user)));
+	return upvote;
 }

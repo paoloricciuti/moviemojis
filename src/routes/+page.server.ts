@@ -2,6 +2,7 @@ import {
 	add_new_movie,
 	add_new_upvote,
 	get_emojis_from_title_from_db,
+	get_upvote_for_movie,
 } from '$lib/db/queries/index.server.js';
 import seedable_rand from 'seed-random';
 import { get_emojis_from_title_ai } from '$lib/utils/openai';
@@ -13,6 +14,7 @@ import type { Actions, PageServerLoadEvent } from './$types.js';
 import { HMAC } from 'oslo/crypto';
 import { encodeHex, decodeHex } from 'oslo/encoding';
 import { ANSWER_SECRET } from '$env/static/private';
+import type { Upvotes } from '$lib/db/schemas/upvotes.js';
 
 const TODAY_COUNT_COOKIE_NAME = 'moviemojis-today-count';
 
@@ -40,7 +42,7 @@ async function sign_id(id: number) {
 	return signature;
 }
 
-export async function load({ cookies }) {
+export async function load({ cookies, locals }) {
 	try {
 		const today_count = get_today_count(cookies);
 		const date = new Date();
@@ -65,16 +67,16 @@ export async function load({ cookies }) {
 		const movies: typeof popular_page_results = [];
 		while (movies.length < 10) {
 			const random = Math.floor(rand() * popular_page_results.length);
-			movies.push(popular_page_results[random]);
+			movies.push(popular_page_results[random]!);
 			popular_page_results.splice(random, 1);
 		}
-		const random_movie = movies[today_count];
+		const random_movie = movies[today_count]!;
 		let movie = await get_emojis_from_title_from_db(random_movie.title);
 		if (!movie) {
 			const emojis = (await get_emojis_from_title_ai(random_movie.title)).emoji;
 			const [new_movie] = await add_new_movie(random_movie, emojis);
 			movie = {
-				...new_movie,
+				...new_movie!,
 				upvotes: 0,
 			};
 		}
@@ -84,10 +86,15 @@ export async function load({ cookies }) {
 			.map((film) => ({ title: film.title, id: film.id }));
 		options.push({ title: random_movie.title, id: random_movie.id });
 		options = shuffle(options, seedable_rand(random_movie.title));
+		let old_upvote: Upvotes | undefined;
+		if (locals.user?.id && movie.upvotes !== 0) {
+			old_upvote = await get_upvote_for_movie(movie.id, locals.user?.id);
+		}
 		return {
 			emojis: movie.emojis,
 			movie_id: movie.id,
 			upvotes: movie.upvotes,
+			old_upvote: old_upvote?.delta,
 			correct_id: await sign_id(random_movie.id),
 			options,
 			exhausted: false as const,
