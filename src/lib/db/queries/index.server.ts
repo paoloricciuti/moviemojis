@@ -1,4 +1,4 @@
-import { eq, sql, desc } from 'drizzle-orm';
+import { eq, sql, desc, and } from 'drizzle-orm';
 import { db } from '../index.server';
 import { movies } from '../schemas/movies';
 import { get_skewed_random } from '$lib/utils';
@@ -77,6 +77,13 @@ export function add_new_upvote({
 			delta,
 			for_movie,
 			from_user,
+		})
+		.onConflictDoUpdate({
+			target: [upvotes.for_movie, upvotes.from_user],
+			set: {
+				delta,
+			},
+			where: and(eq(upvotes.for_movie, for_movie ?? ''), eq(upvotes.from_user, from_user ?? '')),
 		})
 		.returning();
 }
