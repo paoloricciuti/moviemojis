@@ -83,6 +83,7 @@
 			{#if data.user}
 				<form class="grid place-items-center" use:enhance method="post" action="?/vote">
 					<input type="hidden" value={data.movie_id} name="movie_id" />
+					<input type="hidden" value={form.answer_id} name="answer_id" />
 					<div>
 						<button name="delta" value="-1">⬇️</button>
 						<button name="delta" value="1">⬆️</button>

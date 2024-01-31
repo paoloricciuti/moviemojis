@@ -142,8 +142,9 @@ export const actions: Actions = {
 		const data = await request.formData();
 		const delta_str = data.get('delta')?.toString();
 		const for_movie = data.get('movie_id')?.toString();
+		const answer_id = data.get('answer_id')?.toString();
 		const from_user = locals.user?.id;
-		if (!delta_str || !for_movie || !from_user) {
+		if (!delta_str || !for_movie || !from_user || !answer_id) {
 			return fail(400);
 		}
 		const delta = parseInt(delta_str);
@@ -158,14 +159,14 @@ export const actions: Actions = {
 			});
 			return {
 				correct: true,
-				answer_id: for_movie,
+				answer_id,
 				upvote_error: false,
 			};
 		} catch (e) {
 			console.log(e);
 			return fail(500, {
 				correct: true,
-				answer_id: for_movie,
+				answer_id,
 				upvote_error: true,
 			});
 		}
