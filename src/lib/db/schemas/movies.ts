@@ -1,7 +1,7 @@
 import { sql } from 'drizzle-orm';
-import { sqliteTable, text, index } from 'drizzle-orm/sqlite-core';
-import { users } from './users';
+import { index, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { generateId } from 'lucia';
+import { users } from './users';
 
 export const movies = sqliteTable(
 	'movies',
@@ -14,6 +14,7 @@ export const movies = sqliteTable(
 		emojis: text('emojis').notNull(),
 		created_by: text('created_by').references(() => users.id),
 		created_at: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+		updated_at: text('updated_at'),
 	},
 	(table) => {
 		return {

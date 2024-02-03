@@ -12,4 +12,5 @@ export const sessions = sqliteTable('sessions', {
 		.notNull()
 		.references(() => users.id),
 	created_at: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+	updated_at: text('updated_at'),
 });

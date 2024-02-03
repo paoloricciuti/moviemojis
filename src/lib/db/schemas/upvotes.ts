@@ -15,6 +15,7 @@ export const upvotes = sqliteTable(
 		for_movie: text('for_movie').references(() => movies.id),
 		delta: integer('delta').notNull().default(1).$type<-1 | 1>(),
 		created_at: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+		updated_at: text('updated_at'),
 	},
 	(table) => {
 		return {

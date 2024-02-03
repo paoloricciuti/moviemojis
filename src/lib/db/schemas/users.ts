@@ -13,4 +13,5 @@ export const users = sqliteTable('users', {
 	picture: text('picture'),
 	google_id: text('google_id'),
 	created_at: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+	updated_at: text('updated_at'),
 });
