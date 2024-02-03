@@ -167,7 +167,7 @@
 	}
 
 	:root::view-transition-old(cards) {
-		animation: drop 1s;
+		animation: drop 1s cubic-bezier(1, -0.005, 0.955, 0.66);
 		transform-origin: 60% 120%;
 		z-index: 2;
 	}
