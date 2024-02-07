@@ -70,7 +70,7 @@ export function add_new_upvote({
 	delta,
 	for_movie,
 	from_user,
-}: Omit<Upvotes, 'id' | 'created_at'>) {
+}: Omit<Upvotes, 'id' | 'created_at' | 'updated_at'>) {
 	return db
 		.insert(upvotes)
 		.values({

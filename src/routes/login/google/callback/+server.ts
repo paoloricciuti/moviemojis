@@ -39,6 +39,9 @@ export async function GET(event) {
 				google_id: google_user.sub,
 				picture: google_user.picture,
 			});
+			if (!new_user) {
+				error(500);
+			}
 			const session = await lucia.createSession(new_user.id, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
 			event.cookies.set(sessionCookie.name, sessionCookie.value, {
