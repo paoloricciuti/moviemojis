@@ -1,5 +1,14 @@
 import { lucia } from '$lib/auth/index.server';
 import type { Handle } from '@sveltejs/kit';
+import { PUBLIC_USE_MSW } from '$env/static/public';
+
+if (PUBLIC_USE_MSW === 'true') {
+	import('./msw/server').then(({ server }) => {
+		server.listen({
+			onUnhandledRequest: 'bypass',
+		});
+	});
+}
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const session_id = event.cookies.get(lucia.sessionCookieName);
