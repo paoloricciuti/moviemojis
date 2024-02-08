@@ -1,29 +1,16 @@
 import { http, HttpResponse } from 'msw';
+import discover_movie from './fixtures/tmdb/popular.json';
+import recommendation from './fixtures/tmdb/recommendation.json';
+import completion from './fixtures/openai/completion.json';
 
 export const handlers = [
+	http.get('https://api.themoviedb.org/3/movie/:movieId/recommendations', () => {
+		return HttpResponse.json(recommendation);
+	}),
+	http.get('https://api.themoviedb.org/3/discover/movie', () => {
+		return HttpResponse.json(discover_movie);
+	}),
 	http.post('https://api.openai.com/v1/chat/completions', () => {
-		return HttpResponse.json({
-			id: 'chatcmpl-ksjdhsfkh9889373ljdl',
-			object: 'chat.completion',
-			created: 1707426829,
-			model: 'gpt-3.5-turbo-1106',
-			choices: [
-				{
-					index: 0,
-					message: {
-						role: 'assistant',
-						content: '{"emoji": "🧙🏻🕸️🧡🪱"}',
-					},
-					logprobs: null,
-					finish_reason: 'stop',
-				},
-			],
-			usage: {
-				prompt_tokens: 76,
-				completion_tokens: 25,
-				total_tokens: 101,
-			},
-			system_fingerprint: 'fp_djhgdjhd',
-		});
+		return HttpResponse.json(completion);
 	}),
 ];
