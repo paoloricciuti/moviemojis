@@ -18,9 +18,6 @@ export async function get_emojis_from_title_ai(film: string, retry = 0) {
 		],
 		response_format: { type: 'json_object' },
 	});
-	import('node:fs').then(async ({ writeFileSync }) =>
-		writeFileSync('openai.json', JSON.stringify(result, null, 2)),
-	);
 	try {
 		return parse(open_ai_result_schema, JSON.parse(result?.choices?.[0]?.message.content ?? ''));
 	} catch (e) {
