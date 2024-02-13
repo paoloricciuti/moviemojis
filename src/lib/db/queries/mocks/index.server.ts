@@ -1,7 +1,19 @@
 import type { Film } from '$lib/validations';
 import type { Upvotes } from '../../schemas/upvotes';
+import type { Sessions } from '../../schemas/sessions';
+import type { Users } from '../../schemas/users';
+import type { Movies } from '../../schemas/movies';
 
-// TODO: craete in memory db
+const DEFAULT_DB = {
+	movies: [] as Movies[],
+	upvotes: [] as Upvotes[],
+	users: [] as Users[],
+	sessions: [] as Sessions[],
+};
+
+export type MockDB = Partial<typeof DEFAULT_DB>;
+
+export const db = DEFAULT_DB;
 
 export async function get_emojis_from_title_from_db(title: string) {
 	return {

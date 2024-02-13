@@ -2,11 +2,14 @@ import type { PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
 	webServer: {
-		command: 'npm run build && npm run preview',
+		command: 'pnpm build --mode test && pnpm preview --mode test',
 		port: 4173,
+		stdout: 'pipe',
+		stderr: 'pipe',
 	},
 	testDir: 'tests',
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
+	preserveOutput: 'never',
 };
 
 export default config;

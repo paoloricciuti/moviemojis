@@ -1,7 +1,9 @@
-import { sql } from 'drizzle-orm';
+import { sql, type InferSelectModel } from 'drizzle-orm';
 import { index, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { generateId } from 'lucia';
 import { users } from './users';
+
+export type Movies = InferSelectModel<typeof movies>;
 
 export const movies = sqliteTable(
 	'movies',

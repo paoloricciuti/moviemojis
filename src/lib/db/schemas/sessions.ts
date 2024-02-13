@@ -1,7 +1,9 @@
-import { sql } from 'drizzle-orm';
+import { sql, type InferSelectModel } from 'drizzle-orm';
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 import { users } from './users';
 import { generateId } from 'lucia';
+
+export type Sessions = InferSelectModel<typeof sessions>;
 
 export const sessions = sqliteTable('sessions', {
 	id: text('id')

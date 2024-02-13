@@ -12,6 +12,7 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
+		"test:integration:ui": "playwright test --ui",
 		"test:unit": "vitest",
 		"drizzle:generate": "drizzle-kit generate:sqlite",
 		"drizzle:push": "drizzle-kit push:sqlite",
