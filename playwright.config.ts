@@ -9,7 +9,6 @@ const config: PlaywrightTestConfig = {
 	},
 	testDir: 'tests',
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
-	preserveOutput: 'never',
 };
 
 export default config;
