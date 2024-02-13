@@ -2,8 +2,6 @@ import { lucia } from '$lib/auth/index.server';
 import type { Handle } from '@sveltejs/kit';
 import { PUBLIC_USE_MSW } from '$env/static/public';
 import { sequence } from '@sveltejs/kit/hooks';
-import { SEED_ENDPOINT } from '../constants';
-import { db } from '$lib/db/queries/mocks/index.server';
 
 const handlers: Handle[] = [];
 
@@ -13,46 +11,9 @@ if (PUBLIC_USE_MSW === 'true') {
 			onUnhandledRequest: 'bypass',
 		});
 	});
-
-	const text_decoder = new TextDecoder();
-
-	// eslint-disable-next-line svelte/no-inner-declarations, no-inner-declarations
-	function read_body(request: Request) {
-		let body = '';
-		let resolve: (value: Record<string, unknown>) => void;
-		const body_promise = new Promise<Record<string, unknown>>((res) => {
-			resolve = res;
-		});
-		request.body?.pipeTo(
-			new WritableStream({
-				write(chunk) {
-					body += text_decoder.decode(chunk);
-				},
-				close() {
-					resolve(JSON.parse(body));
-				},
-			}),
-		);
-		return body_promise;
-	}
-
+	const { seed_handle } = await import('./hooks-mocks');
 	// seed from playwright handle;
-	handlers.push(async ({ event, resolve }) => {
-		const request = event.request.clone();
-		if (request.method === 'POST') {
-			const request_url = new URL(request.url);
-			if (request_url.pathname === SEED_ENDPOINT) {
-				const body = await read_body(request);
-				for (const key in body) {
-					(db as Record<string, unknown>)[key] = body[key];
-				}
-				return new Response(null, {
-					status: 204,
-				});
-			}
-		}
-		return resolve(event);
-	});
+	handlers.push(seed_handle);
 }
 
 // lucia handle

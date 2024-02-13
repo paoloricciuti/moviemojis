@@ -16,6 +16,7 @@ export type MockDB = Partial<typeof DEFAULT_DB>;
 export const db = DEFAULT_DB;
 
 export async function get_emojis_from_title_from_db(title: string) {
+	return db.movies.find((movie) => movie.title === title);
 	return {
 		id: 'random',
 		emojis: '🎊🎉🥂',
