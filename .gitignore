@@ -13,3 +13,4 @@ moviemojis.db
 moviemojis-test.db
 .vercel
 test-results
+playwright-report
