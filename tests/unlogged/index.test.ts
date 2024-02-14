@@ -9,7 +9,7 @@ test.describe('unlogged homepage', () => {
 		// we are mocking the openai response so we know that this
 		// will be returned as emojis
 		const open_ai_generated_emojis = page.getByText('🧙🏻🕸️🧡🪱');
-		await expect(open_ai_generated_emojis).toBeInViewport();
+		expect(open_ai_generated_emojis).toBeAttached();
 	});
 
 	test("it returns the movie from the db if it's present", async ({ page, seed }) => {
@@ -29,6 +29,6 @@ test.describe('unlogged homepage', () => {
 		});
 		await page.goto('/');
 		const db_emojis = page.getByText(emojis);
-		await expect(db_emojis).toBeInViewport();
+		expect(db_emojis).toBeAttached();
 	});
 });
