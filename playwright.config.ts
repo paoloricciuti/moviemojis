@@ -9,6 +9,10 @@ const config: PlaywrightTestConfig = {
 	},
 	testDir: 'tests',
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
+	retries: process.env.CI ? 2 : 0,
+	use: {
+		trace: 'on-first-retry',
+	},
 	reporter: 'html',
 };
 
