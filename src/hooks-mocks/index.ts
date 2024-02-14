@@ -58,7 +58,6 @@ export const seed_handle: Handle = async ({ event, resolve }) => {
 		if (request_url.pathname === SEED_ENDPOINT) {
 			const body = await read_body(request);
 			for (const key in body) {
-				console.log('seeding ', key, 'with', body[key]);
 				(db as Record<string, unknown>)[key] = body[key];
 			}
 			return new Response(null, {
