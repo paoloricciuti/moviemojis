@@ -50,6 +50,7 @@ export async function load({ cookies, locals }) {
 		date.setMinutes(0);
 		date.setSeconds(0);
 		date.setMilliseconds(0);
+		console.log(date.getTime().toString());
 		if (today_count >= 10) {
 			date.setHours(date.getHours() + 24);
 			const come_back_in = Math.floor((date.getTime() - Date.now()) / 1000);
