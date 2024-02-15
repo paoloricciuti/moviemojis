@@ -91,7 +91,6 @@ export async function load({ cookies, locals }) {
 		if (locals.user?.id && movie.upvotes !== 0) {
 			old_upvote = await get_upvote_for_movie(movie.id, locals.user?.id);
 		}
-		console.log({ movie });
 		return {
 			emojis: movie.emojis,
 			movie_id: movie.id,
