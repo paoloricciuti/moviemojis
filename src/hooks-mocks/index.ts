@@ -1,6 +1,8 @@
 import type { Handle } from '@sveltejs/kit';
 import { SEED_ENDPOINT } from '../../constants';
-import { db } from '$lib/db/queries/mocks/index.server';
+import { db } from '$lib/db/index.server';
+import { schemas } from '$lib/db/utils.server';
+import { reset_db } from '$lib/db/utils.server';
 
 const OriginalDate = globalThis.Date;
 class MockDate extends OriginalDate {
@@ -15,7 +17,7 @@ class MockDate extends OriginalDate {
 	}
 
 	static [Symbol.hasInstance](instance: Date) {
-		return typeof instance.getDate === 'function';
+		return typeof instance?.getDate === 'function';
 	}
 
 	static getTick() {
@@ -57,8 +59,9 @@ export const seed_handle: Handle = async ({ event, resolve }) => {
 		const request_url = new URL(request.url);
 		if (request_url.pathname === SEED_ENDPOINT) {
 			const body = await read_body(request);
+			await reset_db();
 			for (const key in body) {
-				(db as Record<string, unknown>)[key] = body[key];
+				await db.insert(schemas[key as never]).values(body[key] as never);
 			}
 			return new Response(null, {
 				status: 204,

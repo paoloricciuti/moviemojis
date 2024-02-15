@@ -1,8 +1,8 @@
 import { test as base } from '@playwright/test';
 import { SEED_ENDPOINT } from '../constants';
-import type { MockDB } from '../src/lib/db/queries/mocks/index.server';
+import type { Db } from '../src/lib/db/utils.server';
 
-export const test = base.extend<{ seed: (seed: MockDB) => Promise<void> }>({
+export const test = base.extend<{ seed: (seed: Db) => Promise<void> }>({
 	page: async ({ page, javaScriptEnabled }, use) => {
 		// automatically wait for kit started event after navigation functions if js is enabled
 		const page_navigation_functions = ['goto', 'goBack', 'reload'];
