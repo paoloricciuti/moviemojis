@@ -21,13 +21,10 @@ test.describe('unlogged homepage', () => {
 		await seed({
 			movies: [
 				{
-					id: 'gibberish',
 					emojis,
-					created_at: null,
 					created_by: null,
 					title: 'Ice Age: A Mammoth Christmas',
-					tmdb_id: '',
-					updated_at: null,
+					tmdb_id: '1233',
 				},
 			],
 		});

@@ -24,13 +24,14 @@ export const test = base.extend<{ seed: (seed: Db) => Promise<void> }>({
 	},
 	seed: async ({ baseURL }, use) => {
 		await use(async (seed) => {
-			await fetch(`${baseURL}${SEED_ENDPOINT}`, {
+			const res = await fetch(`${baseURL}${SEED_ENDPOINT}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(seed),
 			});
+			console.log(res.status);
 		});
 	},
 });

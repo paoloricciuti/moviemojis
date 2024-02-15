@@ -53,6 +53,10 @@ function read_body(request: Request) {
 	return body_promise;
 }
 
+function check_key_of(key: string): key is keyof typeof schemas {
+	return key in schemas;
+}
+
 export const seed_handle: Handle = async ({ event, resolve }) => {
 	const request = event.request.clone();
 	if (request.method === 'POST') {
@@ -62,10 +66,10 @@ export const seed_handle: Handle = async ({ event, resolve }) => {
 			await reset_db();
 			for (const key in body) {
 				const to_insert = body[key];
-				if (to_insert && Array.isArray(to_insert) && to_insert.length > 0) {
+				if (to_insert && Array.isArray(to_insert) && to_insert.length > 0 && check_key_of(key)) {
 					console.log(
 						await db
-							.insert(schemas[key as never])
+							.insert(schemas[key])
 							.values(body[key] as never)
 							.returning(),
 					);
