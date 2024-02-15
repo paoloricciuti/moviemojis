@@ -50,7 +50,6 @@ export async function load({ cookies, locals }) {
 		date.setUTCMinutes(0);
 		date.setUTCSeconds(0);
 		date.setUTCMilliseconds(0);
-		console.log(date.getTime().toString());
 		if (today_count >= 10) {
 			date.setUTCHours(date.getUTCHours() + 24);
 			const come_back_in = Math.floor((date.getTime() - Date.now()) / 1000);
