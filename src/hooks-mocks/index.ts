@@ -6,7 +6,9 @@ import { reset_db } from '$lib/db/utils.server';
 
 const OriginalDate = globalThis.Date;
 class MockDate extends OriginalDate {
-	static currentDate = '13 Feb 2024  12:00 UTC';
+	// this is 13 Feb 2024 in millisecs from Unix time + 4 hrs...i'm
+	// hardcoding this so that it's consistent in GitHub CI
+	static currentDate = new OriginalDate(1_707_778_800_000 + 14_400_000);
 	static currentTimeStamp = new OriginalDate(MockDate.currentDate).getTime();
 	static originalNow = OriginalDate.now();
 
