@@ -67,12 +67,10 @@ export const seed_handle: Handle = async ({ event, resolve }) => {
 			for (const key in body) {
 				const to_insert = body[key];
 				if (to_insert && Array.isArray(to_insert) && to_insert.length > 0 && check_key_of(key)) {
-					console.log(
-						await db
-							.insert(schemas[key])
-							.values(body[key] as never)
-							.returning(),
-					);
+					await db
+						.insert(schemas[key])
+						.values(body[key] as never)
+						.execute();
 				}
 			}
 			return new Response(null, {
