@@ -26,10 +26,10 @@ export async function get_reccomendations_from_film_id(id: number) {
 
 export async function get_random_popular_page() {
 	const today = new Date();
-	today.setHours(0);
-	today.setMinutes(0);
-	today.setSeconds(0);
-	today.setMilliseconds(0);
+	today.setUTCHours(0);
+	today.setUTCMinutes(0);
+	today.setUTCSeconds(0);
+	today.setUTCMilliseconds(0);
 	const random_page = get_skewed_random(281, seedable_rand(today.getTime().toString())) + 1;
 	const populars_res = await fetch_tmdb(
 		`/discover/movie?include_adult=false&include_video=true&language=en-US&sort_by=vote_average.desc&vote_count.gte=500&with_original_language=en&page=${random_page}`,

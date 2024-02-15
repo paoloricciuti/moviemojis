@@ -46,13 +46,13 @@ export async function load({ cookies, locals }) {
 	try {
 		const today_count = get_today_count(cookies);
 		const date = new Date();
-		date.setHours(0);
-		date.setMinutes(0);
-		date.setSeconds(0);
-		date.setMilliseconds(0);
+		date.setUTCHours(0);
+		date.setUTCMinutes(0);
+		date.setUTCSeconds(0);
+		date.setUTCMilliseconds(0);
 		console.log(date.getTime().toString());
 		if (today_count >= 10) {
-			date.setHours(date.getHours() + 24);
+			date.setUTCHours(date.getUTCHours() + 24);
 			const come_back_in = Math.floor((date.getTime() - Date.now()) / 1000);
 			return {
 				exhausted: true as const,
@@ -91,6 +91,7 @@ export async function load({ cookies, locals }) {
 		if (locals.user?.id && movie.upvotes !== 0) {
 			old_upvote = await get_upvote_for_movie(movie.id, locals.user?.id);
 		}
+		console.log({ movie });
 		return {
 			emojis: movie.emojis,
 			movie_id: movie.id,
@@ -132,10 +133,10 @@ export const actions: Actions = {
 	async next({ cookies }) {
 		const today_count = get_today_count(cookies);
 		const date = new Date();
-		date.setHours(0);
-		date.setMinutes(0);
-		date.setSeconds(0);
-		date.setMilliseconds(0);
+		date.setUTCHours(0);
+		date.setUTCMinutes(0);
+		date.setUTCSeconds(0);
+		date.setUTCMilliseconds(0);
 		// set date to tomorrow at midnight
 		date.setHours(date.getHours() + 24);
 		// set the expiration of the cookie at midnight of tomorrow

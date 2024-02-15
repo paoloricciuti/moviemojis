@@ -17,13 +17,13 @@ test.describe('unlogged homepage', () => {
 	});
 
 	test("it returns the movie from the db if it's present", async ({ page, seed }) => {
-		const emojis = '🧊🦣❄️🎄';
+		const emojis = '✉️☠️🧡';
 		await seed({
 			movies: [
 				{
 					emojis,
 					created_by: null,
-					title: 'Ice Age: A Mammoth Christmas',
+					title: 'The Postcard Killings',
 					tmdb_id: '1233',
 				},
 			],
