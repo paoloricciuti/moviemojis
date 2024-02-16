@@ -19,7 +19,7 @@
 			second: '2-digit',
 			hour12: false,
 			hourCycle: 'h24',
-		}).format(new Date(0, 0, 0, hrs, min, sec));
+		}).format(Date.UTC(0, 0, 0, hrs, min, sec));
 	}
 
 	$effect(() => {
