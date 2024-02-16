@@ -13,15 +13,13 @@
 		const min = Math.floor(unrounded_min * 60);
 		const unrounded_sec = unrounded_min * 60 - min;
 		const sec = Math.floor(unrounded_sec * 60);
-		const date = new Date(0, 0, 0, hrs, min, sec);
-		date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 		return Intl.DateTimeFormat('en', {
 			hour: '2-digit',
 			minute: '2-digit',
 			second: '2-digit',
 			hour12: false,
 			hourCycle: 'h24',
-		}).format(date);
+		}).format(new Date(0, 0, 0, hrs, min, sec));
 	}
 
 	$effect(() => {
