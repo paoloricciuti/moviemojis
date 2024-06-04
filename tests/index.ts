@@ -14,6 +14,7 @@ export const test = base.extend<{ seed: (seed: Db) => Promise<void> }>({
 			(page as unknown as Record<string, unknown>)[fn] = async function (...args: unknown[]) {
 				const res = await page_fn.call(page, ...args);
 				if (javaScriptEnabled) {
+					// eslint-disable-next-line playwright/no-wait-for-selector
 					await page.waitForSelector('body[data-kit-started]', { timeout: 15000 });
 				}
 				return res;

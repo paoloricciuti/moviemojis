@@ -5,8 +5,6 @@
 	onMount(() => {
 		document.body.setAttribute('data-kit-started', '');
 	});
-
-	export let data;
 </script>
 
 <slot />
