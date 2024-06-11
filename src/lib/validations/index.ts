@@ -42,5 +42,5 @@ export const google_openid_schema = v.object({
 	email: v.string(),
 });
 
-export type Film = v.Output<typeof film_schema>;
-export type OpenAiResult = v.Output<typeof open_ai_result_schema>;
+export type Film = v.InferOutput<typeof film_schema>;
+export type OpenAiResult = v.InferOutput<typeof open_ai_result_schema>;
