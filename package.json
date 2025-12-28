@@ -3,6 +3,7 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"packageManager": "pnpm@10.21.0",
 	"scripts": {
 		"dev": "vite dev",
 		"auth:generate": "pnpm dlx @better-auth/cli generate --output ./src/lib/server/db/auth-schema.ts",
