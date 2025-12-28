@@ -66,7 +66,6 @@
 	<div class="scene">
 		<!-- Reel counter -->
 		<div class="reel-counter">
-			<div class="reel-icon">🎞️</div>
 			<div class="reel-info">
 				<span class="reel-label">REEL</span>
 				<span class="reel-number">{movie.today_count ?? 0}/10</span>
@@ -335,20 +334,6 @@
 		align-self: flex-start;
 	}
 
-	.reel-icon {
-		font-size: 1.5rem;
-		animation: spin-reel 3s linear infinite;
-	}
-
-	@keyframes spin-reel {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
-		}
-	}
-
 	.reel-info {
 		display: flex;
 		flex-direction: column;
@@ -377,18 +362,6 @@
 	/* Clapperboard */
 	.clapperboard {
 		background: transparent;
-		animation: clap-in 0.5s ease;
-	}
-
-	@keyframes clap-in {
-		from {
-			opacity: 0;
-			transform: translateY(20px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
 	}
 
 	.clapper-top {
@@ -396,18 +369,6 @@
 		background: var(--color-black);
 		border-radius: 8px 8px 0 0;
 		overflow: hidden;
-		transform-origin: bottom left;
-		animation: clap-top 0.3s ease 0.3s;
-	}
-
-	@keyframes clap-top {
-		0%,
-		70% {
-			transform: rotate(0deg);
-		}
-		20% {
-			transform: rotate(-15deg);
-		}
 	}
 
 	.clapper-stripes {
@@ -503,6 +464,9 @@
 	}
 
 	.emojis {
+		display: inline-block;
+		text-align: center;
+		text-wrap: pretty;
 		font-size: clamp(2rem, 8vw, 3.5rem);
 		letter-spacing: 0.15em;
 		filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
@@ -535,9 +499,6 @@
 		text-align: left;
 		cursor: pointer;
 		transition: all 0.2s ease;
-		animation: option-slide 0.3s ease backwards;
-		animation-delay: calc(var(--i) * 0.08s + 0.4s);
-
 		&:hover:not(:disabled) {
 			border-color: var(--color-gold);
 			background: linear-gradient(180deg, #252525 0%, #1a1a1a 100%);
@@ -789,6 +750,10 @@
 
 		.rating-btn {
 			padding: 0.6rem 1rem;
+		}
+
+		.credits-star {
+			display: none;
 		}
 	}
 </style>

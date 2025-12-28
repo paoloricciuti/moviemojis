@@ -17,6 +17,7 @@ import { HMAC } from '@oslojs/crypto/hmac';
 import { SHA256 } from '@oslojs/crypto/sha2';
 import { ANSWER_SECRET } from '$env/static/private';
 import * as v from 'valibot';
+import { waitUntil } from '@vercel/functions';
 
 const TODAY_COUNT_COOKIE_NAME = 'moviemojis-today-count';
 
@@ -134,7 +135,7 @@ export const guess_movie = form(
 			const today_count = get_today_count();
 			// since it takes a while to generate a new movie, we preemptively increase the count here
 			// so that if it needs to be generated the user can get to it faster...a bit wasteful but oh well
-			get_random_movie_with_emojis(today_count + 1);
+			waitUntil(get_random_movie_with_emojis(today_count + 1));
 		}
 		return {
 			correct,
