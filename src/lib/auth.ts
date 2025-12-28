@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { db } from './server/db';
 import {
+	BETTER_AUTH_SECRET,
 	BETTER_AUTH_URL,
 	GOOGLE_CLIENT_ID,
 	GOOGLE_CLIENT_SECRET,
@@ -12,6 +13,7 @@ import { getRequestEvent } from '$app/server';
 
 export const auth = betterAuth({
 	plugins: [sveltekitCookies(getRequestEvent)],
+	secret: BETTER_AUTH_SECRET,
 	baseURL: BETTER_AUTH_URL,
 	emailAndPassword: {
 		enabled: false
